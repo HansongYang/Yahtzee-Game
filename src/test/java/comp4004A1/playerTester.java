@@ -73,4 +73,17 @@ public class playerTester extends TestCase{
 
 		assertEquals(293, p4.totalPoints());
 	}
+	
+	public void testCheckPoint() {
+		player p = new player();
+		p.addPoints(0, 3);
+		p.addPoints(1, 6);
+		p.addPoints(2, 9);
+		p.addPoints(3, 12);
+		
+		assertEquals(3, p.checkPoint(0));
+		assertEquals(6, p.checkPoint(1));
+		assertEquals(9, p.checkPoint(2));
+		assertEquals(12, p.checkPoint(3));
+	}
 }
