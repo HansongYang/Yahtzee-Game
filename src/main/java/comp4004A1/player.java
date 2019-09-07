@@ -1,11 +1,11 @@
 package comp4004A1;
 
-public class player {
+public class player implements Cloneable {
 	private String name = "";
 	private boolean firstYahtzee = false;
 	private int[] categories = new int[] {0,0,0,0,0,0,0,0,0,0,0,0,0};
 	private int[] yahtzees = new int[] {0,0,0};
-	private boolean bonus = false;
+	private int round = 0;
 	
 	public void setName(String name) {
 		this.name = name;
@@ -15,8 +15,23 @@ public class player {
 		return name;
 	}
 	
+	public int getRound() {
+		return round;
+	}
+	
+	public void nextRound() {
+		round++;
+	}
+	
 	public boolean firstYahtzee() {
 		return firstYahtzee;
+	}
+	
+	public int checkPoint(int index) {
+		if(index >= categories.length) {
+			return 0;
+		}
+		return categories[index];
 	}
 	
 	public void addPoints(int index, int p) {
@@ -37,12 +52,13 @@ public class player {
 	
 	public int bonus() {
 		int points = 0;
+		boolean bonus = false;
 		for(int i = 0; i < categories.length; i++) {
+			points += categories[i];
 			if(i == 5 && points >= 63) {
 				bonus = true;
 				break;
 			}
-			points += categories[i];
 		}
 		if(bonus) {
 			return 35;
@@ -56,13 +72,16 @@ public class player {
 			points += categories[i];
 		}
 		
-		if(bonus) {
-			points += 35;
-		}
+		points += bonus();
 		
 		for(int i = 0; i < yahtzees.length; i++) {
 			points += yahtzees[i];
 		}
 		return points;
 	}
+	
+	 @Override
+	 protected Object clone() throws CloneNotSupportedException {
+		 return super.clone();
+	 }
 }
