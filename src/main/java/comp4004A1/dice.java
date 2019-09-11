@@ -33,10 +33,15 @@ public class dice {
 		}
 	}
 	
-	public void rollSomeDice(int[] index, int[] dice) {
-		for(int i = 0; i < index.length; i++) {
-			d.rollDice();
-			dice[index[i]] = d.getValue();
+	public void rollSomeDice(String index, int[] dice) {
+		for(int i = 0; i < index.length(); i++) {
+			if(index.charAt(i) != ' ') {
+				d.rollDice();
+				int j = index.charAt(i) - '0';
+				if(j < 5) {
+					dice[j] = d.getValue();
+				}
+			}
 		}
 	}
 	

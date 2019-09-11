@@ -5,7 +5,7 @@ public class player implements Cloneable {
 	private boolean firstYahtzee = false;
 	private int[] categories = new int[] {0,0,0,0,0,0,0,0,0,0,0,0,0};
 	private int[] yahtzees = new int[] {0,0,0};
-	private int round = 0;
+	private int round = 1;
 	
 	public void setName(String name) {
 		this.name = name;
