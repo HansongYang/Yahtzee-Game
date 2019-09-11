@@ -21,7 +21,7 @@ public class diceTester extends TestCase {
 	public void testRollSomeDice() {
 		Arrays.fill(dice, 0);
 		dice d = new dice();
-		int[] index = new int[] {0,4};
+		String index = "0 4";
 		
 		d.rollSomeDice(index, dice);
 		int values = d.totalValues(dice);
