@@ -54,6 +54,7 @@ public class gameServer extends Thread{
 						String winner = game.nextRound(inputs[1]);
 						if(winner!= null) {
 							out.write(("win "+ winner).getBytes());
+							System.out.println(inputs[1] + " finishes their turn.");
 						} else {
 							out.write((game.printGameBoard(inputs[1])).getBytes());
 							out.write(0);

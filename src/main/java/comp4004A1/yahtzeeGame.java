@@ -93,10 +93,19 @@ public class yahtzeeGame {
 
 		index--;
 		if(p1.getName().equals(name)){
+			if(points == 50  && p1.firstYahtzee()) {
+				p1.addYahtzee();
+			}
 			p1.addPoints(index, points);
 		} else if(p2.getName().equals(name)) {
+			if(points == 50  && p2.firstYahtzee()) {
+				p2.addYahtzee();
+			}
 			p2.addPoints(index, points);
 		} else if (p3.getName().equals(name)){
+			if(points == 50  && p3.firstYahtzee()) {
+				p3.addYahtzee();
+			}
 			p3.addPoints(index, points);
 		}
 	}
