@@ -38,7 +38,9 @@ public class player implements Cloneable {
 		if(index == 12) {
 			firstYahtzee = true;
 		}
-		categories[index] = p;
+		if(categories[index] == 0) {
+			categories[index] = p;
+		}
 	}
 	
 	public void addYahtzee() {
