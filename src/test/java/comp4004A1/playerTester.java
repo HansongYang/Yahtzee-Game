@@ -70,7 +70,8 @@ public class playerTester extends TestCase{
 		p4.addPoints(10, 40);
 		p4.addPoints(11, 50);
 		p4.addPoints(12, 20);
-
+		
+		assertEquals(35, p4.bonus());
 		assertEquals(293, p4.totalPoints());
 	}
 	
@@ -85,5 +86,15 @@ public class playerTester extends TestCase{
 		assertEquals(6, p.checkPoint(1));
 		assertEquals(9, p.checkPoint(2));
 		assertEquals(12, p.checkPoint(3));
+	}
+	
+	public void testYahtzeeBouns() {
+		player p1 = new player();
+		p1.addPoints(12, 50);
+		p1.addYahtzee();
+		assertEquals(150, p1.totalPoints());
+		
+		p1.addYahtzee();
+		assertEquals(250, p1.totalPoints());
 	}
 }
