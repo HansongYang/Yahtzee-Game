@@ -85,4 +85,40 @@ public class gameTester extends TestCase{
 		
 		assertEquals(game.winner(), "Sam");
 	}
+	
+	public void testGetPlayerRound() {
+		game.setPlayerName("Moe");
+		game.setPlayerName("Joe");
+		game.setPlayerName("Sam");
+		game.nextRound("Moe");
+		game.nextRound("Joe");
+		game.nextRound("Sam");
+		game.nextRound("Moe");
+		game.nextRound("Joe");
+		game.nextRound("Sam");
+		game.nextRound("Moe");
+		game.nextRound("Joe");
+		game.nextRound("Moe");
+		
+		assertEquals(game.getPlayerRound("Moe"), 5);
+		assertEquals(game.getPlayerRound("Joe"), 4);
+		assertEquals(game.getPlayerRound("Sam"), 3);
+	}
+	
+	public void testNextRound2() {
+		game.setPlayerName("Moe");
+		game.setPlayerName("Joe");
+		game.setPlayerName("Sam");
+		game.nextRound("Moe");
+		game.nextRound("Joe");
+		game.nextRound("Sam");
+		game.nextRound("Moe");
+		game.nextRound("Joe");
+		game.nextRound("Sam");
+		game.nextRound("Moe");
+		game.nextRound("Joe");
+		game.nextRound("Sam");
+		
+		assertEquals(game.nextRound(), true);
+	}
 }
