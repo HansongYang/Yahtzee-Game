@@ -35,9 +35,38 @@ public class yahtzeeGame {
 		return null;
 	}
 	
+	public int getPlayerPoints(String name) {
+		if(p1.getName().equals(name)){
+			return p1.totalPoints();
+		} else if(p2.getName().equals(name)) {
+			return p2.totalPoints();
+		} else if (p3.getName().equals(name)){
+			return p3.totalPoints();
+		}
+		return 0;
+	}
+	
+	public int getPlayerRound(String name) {
+		if(p1.getName().equals(name)){
+			return p1.getRound();
+		} else if(p2.getName().equals(name)) {
+			return p2.getRound();
+		} else if (p3.getName().equals(name)){
+			return p3.getRound();
+		}
+		return 0;
+	}
+	
+	public boolean nextRound() {
+		if((p1.getRound() == p2.getRound()) && (p2.getRound() == p3.getRound())) {
+			return true;
+		}
+		return false;
+	}
+	
 	public String printAllDice() {
 		StringBuilder out = new StringBuilder(""); 
-		out.append("Your rolled:    ");
+		out.append(" rolled:    ");
 		for(int i = 0; i < dice.length; i++) {
 			out.append("| "  + dice[i] + " |   ");
 		}
