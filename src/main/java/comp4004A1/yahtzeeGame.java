@@ -74,7 +74,7 @@ public class yahtzeeGame {
 		return out.toString();
 	}
 	
-	public void score(String name, int index) {
+	public boolean score(String name, int index) {
 		int points = 0;
 		switch(index) {
 			case 1:
@@ -125,18 +125,19 @@ public class yahtzeeGame {
 			if(points == 50  && p1.firstYahtzee()) {
 				p1.addYahtzee();
 			}
-			p1.addPoints(index, points);
+			return p1.addPoints(index, points);
 		} else if(p2.getName().equals(name)) {
 			if(points == 50  && p2.firstYahtzee()) {
 				p2.addYahtzee();
 			}
-			p2.addPoints(index, points);
+			return p2.addPoints(index, points);
 		} else if (p3.getName().equals(name)){
 			if(points == 50  && p3.firstYahtzee()) {
 				p3.addYahtzee();
 			}
-			p3.addPoints(index, points);
+			return p3.addPoints(index, points);
 		}
+		return false;
 	}
 	
 	public String nextRound(String name) {
@@ -176,7 +177,7 @@ public class yahtzeeGame {
 		StringBuilder out = new StringBuilder(""); 
 		if(name.equals(p1.getName())) {
 			out.append("---------------------------------------------------------------------------------------------------------------\n");
-			out.append(" | Name: "+p1.getName()+"            |    Current Score: "+p1.totalPoints()+ "     |      Current Round: " + p1.getRound() + "                                       |\n");
+			out.append(" | Name: "+p1.getName()+"            |    Current Score: "+p1.totalPoints()+ "     |      Current Round: " + p1.getRound() + "                                      |\n");
 			out.append(" | ----------------------------------------------------------------------------------------------------------- |\n");
 			out.append(" | (1) Ones:  " +p1.checkPoint(0)+" | (2) Twos:   " + p1.checkPoint(1) + " | (3) Threes:  "+ p1.checkPoint(2)+ " | (4) Fours:  "+ p1.checkPoint(3) 
 						+ " | (5) Fives:   "+ p1.checkPoint(4) + " | (6) Sixes:   " + p1.checkPoint(5) + " | Bonus:  " + p1.bonus()+" |\n");
@@ -185,11 +186,11 @@ public class yahtzeeGame {
 						+p1.checkPoint(8)+ " | (10) Three of a kind: " + p1.checkPoint(9) + "                 |\n");
 			out.append(" | ----------------------------------------------------------------------------------------------------------- |\n");
 			out.append(" | (11) Four of a kind: " + p1.checkPoint(10) + "    | (12) Chance: " + p1.checkPoint(11) + "      | (13) Yahtzee!: " + p1.checkPoint(12) + "                                          |\n");
-			out.append("---------------------------------------------------------------------------------------------------------------\n");
+			out.append("----------------------------------------------------------------------------------------------------------------\n");
 			
 			out.append(" \n");
 			out.append(" ---------------------------------------------------------------------------------------------------------------\n");
-			out.append(" | Name: "+p2.getName()+"            |    Current Score: "+p2.totalPoints()+ "        |      Current Round: " + p2.getRound() + "                                      |\n");
+			out.append(" | Name: "+p2.getName()+"            |    Current Score: "+p2.totalPoints()+ "        |      Current Round: " + p2.getRound() + "                                   |\n");
 			out.append(" | ----------------------------------------------------------------------------------------------------------- |\n");
 			out.append(" | (1) Ones:  " +p2.checkPoint(0)+" | (2) Twos:   " + p2.checkPoint(1) + " | (3) Threes:  "+p2.checkPoint(2)+ " | (4) Fours:  "+ p2.checkPoint(3)
 						+ " | (5) Fives:   "+ p2.checkPoint(4) + " | (6) Sixes:   " + p2.checkPoint(5) + " | Bonus:  " + p2.bonus()+" |\n");
@@ -202,7 +203,7 @@ public class yahtzeeGame {
 			
 			out.append(" \n");
 			out.append(" ---------------------------------------------------------------------------------------------------------------\n");
-			out.append(" | Name: "+p3.getName()+"            |    Current Score: "+p3.totalPoints()+ "     |    Current Round: " + p3.getRound() + "                                           |\n");
+			out.append(" | Name: "+p3.getName()+"            |    Current Score: "+p3.totalPoints()+ "     |    Current Round: " + p3.getRound() + "                                        |\n");
 			out.append(" | ----------------------------------------------------------------------------------------------------------- |\n");
 			out.append(" | (1) Ones:  " +p3.checkPoint(0)+" | (2) Twos:   " + p3.checkPoint(1) + " | (3) Threes:  "+ p3.checkPoint(2)+ " | (4) Fours:  "+ p3.checkPoint(3) 
 								+ " | (5) Fives:   "+ p3.checkPoint(4) + " | (6) Sixes:   " + p3.checkPoint(5) + " | Bonus:  " + p3.bonus()+" |\n");
@@ -211,10 +212,10 @@ public class yahtzeeGame {
 						+p3.checkPoint(8)+ " | (10) Three of a kind: " + p3.checkPoint(9) + "                 |\n");
 			out.append(" | ----------------------------------------------------------------------------------------------------------- |\n");
 			out.append(" | (11) Four of a kind: " + p3.checkPoint(10) + "    | (12) Chance: " + p3.checkPoint(11) + "      | (13) Yahtzee!: " + p3.checkPoint(12) + "                                          |\n");
-			out.append(" --------------------------------------------------------------------------------------------------------------\n");
+			out.append(" ---------------------------------------------------------------------------------------------------------------\n");
 		} else if(name.equals(p2.getName())){
 			out.append("---------------------------------------------------------------------------------------------------------------\n");
-			out.append(" | Name: "+p2.getName()+"            |    Current Score: "+p2.totalPoints()+ "        |      Current Round: " + p2.getRound() + "                                      |\n");
+			out.append(" | Name: "+p2.getName()+"            |    Current Score: "+p2.totalPoints()+ "        |      Current Round: " + p2.getRound() + "                                   |\n");
 			out.append(" | ----------------------------------------------------------------------------------------------------------- |\n");
 			out.append(" | (1) Ones:  " +p2.checkPoint(0)+" | (2) Twos:   " + p2.checkPoint(1) + " | (3) Threes:  "+p2.checkPoint(2)+ " | (4) Fours:  "+ p2.checkPoint(3)
 						+ " | (5) Fives:   "+ p2.checkPoint(4) + " | (6) Sixes:   " + p2.checkPoint(5) + " | Bonus:  " + p2.bonus()+" |\n");
@@ -223,48 +224,10 @@ public class yahtzeeGame {
 						+p2.checkPoint(8)+ " | (10) Three of a kind: " + p2.checkPoint(9) + "                 |\n");
 			out.append(" | ----------------------------------------------------------------------------------------------------------- |\n");
 			out.append(" | (11) Four of a kind: " + p2.checkPoint(10) + "    | (12) Chance: " + p2.checkPoint(11) + "      | (13) Yahtzee!: " + p2.checkPoint(12) + "                                          |\n");
-			out.append("---------------------------------------------------------------------------------------------------------------\n");
+			out.append("----------------------------------------------------------------------------------------------------------------\n");
 	
 			out.append(" \n");
 			out.append(" ---------------------------------------------------------------------------------------------------------------\n");
-			out.append(" | Name: "+p1.getName()+"            |    Current Score: "+p1.totalPoints()+ "     |      Current Round: " + p1.getRound() + "                                       |\n");
-			out.append(" | ----------------------------------------------------------------------------------------------------------- |\n");
-			out.append(" | (1) Ones:  " +p1.checkPoint(0)+" | (2) Twos:   " + p1.checkPoint(1) + " | (3) Threes:  "+ p1.checkPoint(2)+ " | (4) Fours:  "+ p1.checkPoint(3) 
-						+ " | (5) Fives:   "+ p1.checkPoint(4) + " | (6) Sixes:   " + p1.checkPoint(5) + " | Bonus:  " + p1.bonus()+" |\n");
-			out.append(" | ----------------------------------------------------------------------------------------------------------- |\n");
-			out.append(" | (7) Large Straight: " + p1.checkPoint(6) + " | (8) Small Straight: " + p1.checkPoint(7) + " | (9) Full House: "
-						+p1.checkPoint(8)+ " | (10) Three of a kind: " + p1.checkPoint(9) + "                 |\n");
-			out.append(" | ----------------------------------------------------------------------------------------------------------- |\n");
-			out.append(" | (11) Four of a kind: " + p1.checkPoint(10) + "    | (12) Chance: " + p1.checkPoint(11) + "      | (13) Yahtzee!: " + p1.checkPoint(12) + "                                          |\n");
-			out.append(" ---------------------------------------------------------------------------------------------------------------\n");
-			
-			out.append(" \n");
-			out.append(" ---------------------------------------------------------------------------------------------------------------\n");
-			out.append(" | Name: "+p3.getName()+"            |    Current Score: "+p3.totalPoints()+ "     |    Current Round: " + p3.getRound() + "                                         |\n");
-			out.append(" | ----------------------------------------------------------------------------------------------------------- |\n");
-			out.append(" | (1) Ones:  " +p3.checkPoint(0)+" | (2) Twos:   " + p3.checkPoint(1) + " | (3) Threes:  "+ p3.checkPoint(2)+ " | (4) Fours:  "+ p3.checkPoint(3) 
-								+ " | (5) Fives:   "+ p3.checkPoint(4) + " | (6) Sixes:   " + p3.checkPoint(5) + " | Bonus:  " + p3.bonus()+" |\n");
-			out.append(" | ----------------------------------------------------------------------------------------------------------- |\n");
-			out.append(" | (7) Large Straight: " + p3.checkPoint(6) + " | (8) Small Straight: " + p3.checkPoint(7) + " | (9) Full House: "
-						+p3.checkPoint(8)+ " | (10) Three of a kind: " + p3.checkPoint(9) + "                 |\n");
-			out.append(" | ----------------------------------------------------------------------------------------------------------- |\n");
-			out.append(" | (11) Four of a kind: " + p3.checkPoint(10) + "    | (12) Chance: " + p3.checkPoint(11) + "      | (13) Yahtzee!: " + p3.checkPoint(12) + "                                          |\n");
-			out.append("--------------------------------------------------------------------------------------------------------------\n");
-		} else if(name.equals(p3.getName())){
-			out.append("---------------------------------------------------------------------------------------------------------------\n");
-			out.append(" | Name: "+p3.getName()+"            |    Current Score: "+p3.totalPoints()+ "     |      Current Round: " + p3.getRound() + "                                      |\n");
-			out.append(" | ----------------------------------------------------------------------------------------------------------- |\n");
-			out.append(" | (1) Ones:  " +p3.checkPoint(0)+" | (2) Twos:   " + p3.checkPoint(1) + " | (3) Threes:  "+ p3.checkPoint(2)+ " | (4) Fours:  "+ p3.checkPoint(3) 
-								+ " | (5) Fives:   "+ p3.checkPoint(4) + " | (6) Sixes:   " + p3.checkPoint(5) + " | Bonus:  " + p3.bonus()+" |\n");
-			out.append(" | ----------------------------------------------------------------------------------------------------------- |\n");
-			out.append(" | (7) Large Straight: " + p3.checkPoint(6) + " | (8) Small Straight: " + p3.checkPoint(7) + " | (9) Full House: "
-						+p3.checkPoint(8)+ " | (10) Three of a kind: " + p3.checkPoint(9) + "                 |\n");
-			out.append(" | ----------------------------------------------------------------------------------------------------------- |\n");
-			out.append(" | (11) Four of a kind: " + p3.checkPoint(10) + "    | (12) Chance: " + p3.checkPoint(11) + "      | (13) Yahtzee!: " + p3.checkPoint(12) + "                                          |\n");
-			out.append(" --------------------------------------------------------------------------------------------------------------\n");
-			
-			out.append(" \n");
-			out.append(" --------------------------------------------------------------------------------------------------------------\n");
 			out.append(" | Name: "+p1.getName()+"            |    Current Score: "+p1.totalPoints()+ "     |      Current Round: " + p1.getRound() + "                                      |\n");
 			out.append(" | ----------------------------------------------------------------------------------------------------------- |\n");
 			out.append(" | (1) Ones:  " +p1.checkPoint(0)+" | (2) Twos:   " + p1.checkPoint(1) + " | (3) Threes:  "+ p1.checkPoint(2)+ " | (4) Fours:  "+ p1.checkPoint(3) 
@@ -277,7 +240,45 @@ public class yahtzeeGame {
 			out.append(" ---------------------------------------------------------------------------------------------------------------\n");
 			
 			out.append(" \n");
-			out.append(" --------------------------------------------------------------------------------------------------------------\n");
+			out.append(" ---------------------------------------------------------------------------------------------------------------\n");
+			out.append(" | Name: "+p3.getName()+"            |    Current Score: "+p3.totalPoints()+ "     |    Current Round: " + p3.getRound() + "                                        |\n");
+			out.append(" | ----------------------------------------------------------------------------------------------------------- |\n");
+			out.append(" | (1) Ones:  " +p3.checkPoint(0)+" | (2) Twos:   " + p3.checkPoint(1) + " | (3) Threes:  "+ p3.checkPoint(2)+ " | (4) Fours:  "+ p3.checkPoint(3) 
+						+ " | (5) Fives:   "+ p3.checkPoint(4) + " | (6) Sixes:   " + p3.checkPoint(5) + " | Bonus:  " + p3.bonus()+" |\n");
+			out.append(" | ----------------------------------------------------------------------------------------------------------- |\n");
+			out.append(" | (7) Large Straight: " + p3.checkPoint(6) + " | (8) Small Straight: " + p3.checkPoint(7) + " | (9) Full House: "
+						+p3.checkPoint(8)+ " | (10) Three of a kind: " + p3.checkPoint(9) + "                 |\n");
+			out.append(" | ----------------------------------------------------------------------------------------------------------- |\n");
+			out.append(" | (11) Four of a kind: " + p3.checkPoint(10) + "    | (12) Chance: " + p3.checkPoint(11) + "      | (13) Yahtzee!: " + p3.checkPoint(12) + "                                          |\n");
+			out.append("----------------------------------------------------------------------------------------------------------------\n");
+		} else if(name.equals(p3.getName())){
+			out.append("---------------------------------------------------------------------------------------------------------------\n");
+			out.append(" | Name: "+p3.getName()+"            |    Current Score: "+p3.totalPoints()+ "     |      Current Round: " + p3.getRound() + "                                      |\n");
+			out.append(" | ----------------------------------------------------------------------------------------------------------- |\n");
+			out.append(" | (1) Ones:  " +p3.checkPoint(0)+" | (2) Twos:   " + p3.checkPoint(1) + " | (3) Threes:  "+ p3.checkPoint(2)+ " | (4) Fours:  "+ p3.checkPoint(3) 
+								+ " | (5) Fives:   "+ p3.checkPoint(4) + " | (6) Sixes:   " + p3.checkPoint(5) + " | Bonus:  " + p3.bonus()+" |\n");
+			out.append(" | ----------------------------------------------------------------------------------------------------------- |\n");
+			out.append(" | (7) Large Straight: " + p3.checkPoint(6) + " | (8) Small Straight: " + p3.checkPoint(7) + " | (9) Full House: "
+						+p3.checkPoint(8)+ " | (10) Three of a kind: " + p3.checkPoint(9) + "                 |\n");
+			out.append(" | ----------------------------------------------------------------------------------------------------------- |\n");
+			out.append(" | (11) Four of a kind: " + p3.checkPoint(10) + "    | (12) Chance: " + p3.checkPoint(11) + "      | (13) Yahtzee!: " + p3.checkPoint(12) + "                                          |\n");
+			out.append(" ---------------------------------------------------------------------------------------------------------------\n");
+			
+			out.append(" \n");
+			out.append(" ---------------------------------------------------------------------------------------------------------------\n");
+			out.append(" | Name: "+p1.getName()+"            |    Current Score: "+p1.totalPoints()+ "     |      Current Round: " + p1.getRound() + "                                      |\n");
+			out.append(" | ----------------------------------------------------------------------------------------------------------- |\n");
+			out.append(" | (1) Ones:  " +p1.checkPoint(0)+" | (2) Twos:   " + p1.checkPoint(1) + " | (3) Threes:  "+ p1.checkPoint(2)+ " | (4) Fours:  "+ p1.checkPoint(3) 
+						+ " | (5) Fives:   "+ p1.checkPoint(4) + " | (6) Sixes:   " + p1.checkPoint(5) + " | Bonus:  " + p1.bonus()+" |\n");
+			out.append(" | ----------------------------------------------------------------------------------------------------------- |\n");
+			out.append(" | (7) Large Straight: " + p1.checkPoint(6) + " | (8) Small Straight: " + p1.checkPoint(7) + " | (9) Full House: "
+						+p1.checkPoint(8)+ " | (10) Three of a kind: " + p1.checkPoint(9) + "                 |\n");
+			out.append(" | ----------------------------------------------------------------------------------------------------------- |\n");
+			out.append(" | (11) Four of a kind: " + p1.checkPoint(10) + "    | (12) Chance: " + p1.checkPoint(11) + "      | (13) Yahtzee!: " + p1.checkPoint(12) + "                                          |\n");
+			out.append(" ---------------------------------------------------------------------------------------------------------------\n");
+			
+			out.append(" \n");
+			out.append(" ---------------------------------------------------------------------------------------------------------------\n");
 			out.append(" | Name: "+p2.getName()+"            |    Current Score: "+p2.totalPoints()+ "        |    Current Round: " + p2.getRound() + "                                     |\n");
 			out.append(" | ----------------------------------------------------------------------------------------------------------- |\n");
 			out.append(" | (1) Ones:  " +p2.checkPoint(0)+" | (2) Twos:   " + p2.checkPoint(1) + " | (3) Threes:  "+p2.checkPoint(2)+ " | (4) Fours:  "+ p2.checkPoint(3)

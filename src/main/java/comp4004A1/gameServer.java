@@ -58,9 +58,9 @@ class ClientHandler implements Runnable{
     					game.setPlayerName(request);
     					firstMessage = true;
     					if(gameServer.ar.size() == 3) {
-    						 for (ClientHandler mc : gameServer.ar){ 
-    							 mc.dos.write((mc.name + "start\n").getBytes());
-    						 }
+    						// for (ClientHandler mc : gameServer.ar){ 
+    							 dos.write((name + " starts\n").getBytes());
+    						// }
     					}
     			  }
                  
@@ -78,24 +78,46 @@ class ClientHandler implements Runnable{
 		 				} else if(request.startsWith("score") && request.endsWith(mc.name)) {
 		 					String [] inputs = request.split(" ");
 		 					int index = Integer.parseInt(inputs[1]);
-		 					game.score(inputs[2], index);
-		 					String winner = game.nextRound(inputs[2]);
-		 					if(winner != null) {
-		 						System.out.println(inputs[2] + " wins the game.");
-		 						System.out.println("Goodbye");
-		 						for (ClientHandler c : gameServer.ar){ 
-		 							c.dos.write(("win "+ winner+ " " + game.getPlayerPoints(winner)).getBytes());
-		 						}
-		 						System.exit(0);
-		 					} else {
-		 						System.out.println(inputs[2] + " finishes their turn.");
-		 						mc.dos.write((mc.name + " "+ "wait\n").getBytes());
-		 						if(game.nextRound()) {
-		 							System.out.println("Round " + (game.getPlayerRound(mc.name)-1) +" is finished.");
-		 							for (ClientHandler c : gameServer.ar){ 
-		 								c.dos.write((c.name+"continue\n").getBytes());
-		 							}
-		 						}
+		 					if(!game.score(inputs[2], index)) {
+		 						mc.dos.write((mc.name+"invalid\n").getBytes());
+		 					}else {
+		 						mc.dos.write((mc.name+"valid\n").getBytes());
+			 					String winner = game.nextRound(inputs[2]);
+			 					if(winner != null) {
+			 						System.out.println(inputs[2] + " wins the game.");
+			 						System.out.println("Goodbye");
+			 						for (ClientHandler c : gameServer.ar){ 
+			 							c.dos.write(("win "+ winner+ " " + game.getPlayerPoints(winner)).getBytes());
+			 						}
+			 						System.exit(0);
+			 					} else {
+			 						System.out.println(inputs[2] + " finishes their turn.");
+			 						mc.dos.write((mc.name + " "+ "wait\n").getBytes());
+			 						if(game.nextRound()) {
+			 							System.out.println("Round " + (game.getPlayerRound(mc.name)-1) +" is finished.\n");
+			 							for (ClientHandler c : gameServer.ar){
+			 								if(c.name.equals(gameServer.ar.get(2).name)) {
+			 									c.dos.write((gameServer.ar.get(2).name + "continue\n").getBytes());
+			 								}
+			 							}
+			 						}else {
+			 							for (ClientHandler c : gameServer.ar){ 
+				 							if(name.equals(gameServer.ar.get(2).name) && c.name.equals(gameServer.ar.get(1).name)) {
+				 								if(game.getPlayerRound(gameServer.ar.get(1).name) == 1) {
+				 									 c.dos.write((gameServer.ar.get(1).name + " starts\n").getBytes());
+				 								}else {
+				 									c.dos.write((gameServer.ar.get(1).name+"continue\n").getBytes());
+				 								}
+				 							} else if(name.equals(gameServer.ar.get(1).name) && c.name.equals(gameServer.ar.get(0).name)) {
+				 								if(game.getPlayerRound(gameServer.ar.get(0).name) == 1) {
+				 									 c.dos.write((gameServer.ar.get(0).name + " starts\n").getBytes());
+				 								}else {
+				 									c.dos.write((gameServer.ar.get(0).name+"continue\n").getBytes());
+				 								}
+				 							}
+			 							}
+			 						}
+			 					}
 		 					}
 		 				} else if(request.startsWith("board") && request.endsWith(mc.name)){
 		 					mc.dos.write((game.printGameBoard(mc.name)).getBytes());
