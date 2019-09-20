@@ -34,13 +34,15 @@ public class player implements Cloneable {
 		return categories[index];
 	}
 	
-	public void addPoints(int index, int p) {
+	public boolean addPoints(int index, int p) {
 		if(index == 12) {
 			firstYahtzee = true;
 		}
 		if(categories[index] == 0) {
 			categories[index] = p;
+			return true;
 		}
+		return false;
 	}
 	
 	public void addYahtzee() {

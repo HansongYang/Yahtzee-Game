@@ -36,10 +36,12 @@ public class gameClient {
 			
 			out.println(name);
 			System.out.println("Waiting for other players....\n");
-			
 			while(true) {
 				String ss = in.readLine();
-				if(ss.endsWith("start") && ss.startsWith(name)) {
+				if(ss == null){
+					continue;
+				}
+				if(ss.endsWith("starts") && ss.startsWith(name)) {
 					break;
 				}
 			}
@@ -99,18 +101,26 @@ public class gameClient {
 						out.println("rollAll"+name);
 						roll++;
 					} else if (input == 3) {
-						System.out.println("What category do you want to score this round against? (Please enter the category number)");
-						input = scan.nextInt();
-						out.println("score " + input + " " + name);
+						while(true) {
+							System.out.println("What category do you want to score this round against? (Please enter the category number)");
+							input = scan.nextInt();
+							out.println("score " + input + " " + name);
+							String valid = in.readLine();
+							if(valid.startsWith(name) && valid.endsWith("invalid")) {
+								System.out.println("Sorry, you have already scored this category. Please choose again. \n");
+							}else if(valid.startsWith(name) && valid.endsWith("valid")) {
+								break;
+							}
+						}
 						break;
 					} else {
 						System.out.println("Invalid Input. Please enter again.");
 						continue;
 					}
 					
-					while ((dice = in.readLine()) != null && first) {
+					while (first && (dice = in.readLine()) != null) {
 						if(!dice.startsWith(name)) {
-							first  = false;
+							first = false;
 							break;
 						}
 						System.out.print(dice);
@@ -121,9 +131,17 @@ public class gameClient {
 					System.out.println('\n');
 					
 					if(roll == 3) {
-						System.out.println("What category do you want to score this round against? (Please enter the category number)");
-						input = Integer.parseInt(scan.nextLine());
-						out.println("score " + input + " " + name);
+						while(true) {
+							System.out.println("What category do you want to score this round against? (Please enter the category number)");
+							input = scan.nextInt();
+							out.println("score " + input + " " + name);
+							String valid = in.readLine();
+							if(valid.startsWith(name) && valid.endsWith("invalid")) {
+								System.out.println("Sorry, you have already scored this category. Please choose again. \n");
+							}else if(valid.startsWith(name) && valid.endsWith("valid")) {
+								break;
+							}
+						}
 						break;
 					}
 				}
