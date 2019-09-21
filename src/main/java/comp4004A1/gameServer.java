@@ -21,7 +21,7 @@ public class gameServer{
             t.start(); 
             if(ar.size() == 3) {
             	Thread.sleep(500);
-            	System.out.println("The game is starting!");
+            	System.out.println("The game is starting! \n");
             }
         } 
     } 
@@ -58,9 +58,7 @@ class ClientHandler implements Runnable{
     					game.setPlayerName(request);
     					firstMessage = true;
     					if(gameServer.ar.size() == 3) {
-    						// for (ClientHandler mc : gameServer.ar){ 
-    							 dos.write((name + " starts\n").getBytes());
-    						// }
+    						dos.write((name + " starts\n").getBytes());
     					}
     			  }
                  
