@@ -20,6 +20,49 @@ public class gameTester extends TestCase{
 		assertEquals(p2.getName(), "Joe");
 		assertEquals(p3.getName(), "Sam");
 	}
+	public void testGetPlayerPoints() {
+		game.setPlayerName("Moe");
+		game.setPlayerName("Joe");
+		game.setPlayerName("Sam");
+		int[] dice = new int[] {6,1,2,6,6};
+		game.setDice(dice);
+		game.score("Moe", 6);
+		assertEquals(game.getPlayerPoints("Moe"), 18);
+		
+		int[] dice2 = new int[] {6,5,5,5,4};
+		game.setDice(dice2);
+		game.score("Joe", 5);
+		assertEquals(game.getPlayerPoints("Joe"), 15);
+		
+		int[] dice3 = new int[] {6,5,5,5,6};
+		game.setDice(dice3);
+		game.score("Sam", 9);
+		assertEquals(game.getPlayerPoints("Sam"), 25);
+	}
+	
+	public void testGetPlayerRounds() {
+		game.setPlayerName("Moe");
+		game.setPlayerName("Joe");
+		game.setPlayerName("Sam");
+		
+		game.nextRound("Moe");
+		game.nextRound("Moe");
+		game.nextRound("Moe");
+		assertEquals(game.getPlayerRound("Moe"), 4);
+		
+		game.nextRound("Joe");
+		game.nextRound("Joe");
+		game.nextRound("Joe");
+		game.nextRound("Joe");
+		game.nextRound("Joe");
+		assertEquals(game.getPlayerRound("Joe"), 6);
+		
+		game.nextRound("Sam");
+		game.nextRound("Sam");
+		game.nextRound("Sam");
+		game.nextRound("Sam");
+		assertEquals(game.getPlayerRound("Sam"), 5);
+	}
 	
 	public void testScore() throws CloneNotSupportedException {
 		game.setPlayerName("Moe");
