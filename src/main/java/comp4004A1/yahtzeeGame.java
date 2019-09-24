@@ -165,6 +165,7 @@ public class yahtzeeGame {
 		}
 		return null;
 	}
+	
 	public void rollAllDice() {
 		d.rollAllDice(dice);
 	}
