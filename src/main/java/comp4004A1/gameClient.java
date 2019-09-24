@@ -104,6 +104,10 @@ public class gameClient {
 						while(true) {
 							System.out.println("What category do you want to score this round against? (Please enter the category number)");
 							input = scan.nextInt();
+							if(input < 1 || input > 13) {
+								System.out.println("Invalid option, please enter again.");
+								continue;
+							}
 							out.println("score " + input + " " + name);
 							String valid = in.readLine();
 							if(valid.startsWith(name) && valid.endsWith("invalid")) {
@@ -134,6 +138,10 @@ public class gameClient {
 						while(true) {
 							System.out.println("What category do you want to score this round against? (Please enter the category number)");
 							input = scan.nextInt();
+							if(input < 1 || input > 13) {
+								System.out.println("Invalid option, please enter again.");
+								continue;
+							}
 							out.println("score " + input + " " + name);
 							String valid = in.readLine();
 							if(valid.startsWith(name) && valid.endsWith("invalid")) {
