@@ -30,4 +30,17 @@ public class diceTester extends TestCase {
 		d.rollSomeDice(index, dice);
 		assertThat(values, not(d.totalValues(dice)));
 	}
+	
+	public void testTotalValue() {
+		dice d = new dice();
+		d.rollAllDice(dice);
+		int values = d.totalValues(dice);
+		assertThat(0, not(values));
+		
+		int [] dice2 = new int[] {1,2,3,4,5};
+		assertEquals(d.totalValues(dice2), 15);
+		
+		int [] dice3 = new int[] {3,2,2,4,5};
+		assertEquals(d.totalValues(dice3), 16);
+	}
 }
