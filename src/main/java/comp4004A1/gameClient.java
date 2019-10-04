@@ -196,4 +196,11 @@ public class gameClient {
 			e.printStackTrace();
 		}
 	}
+	
+	public static boolean userActionChecker(int option) {
+		if(option >= 1 && option <=3) {
+			return true;
+		}
+		return false;
+	}
 }
