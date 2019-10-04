@@ -1,4 +1,4 @@
-package cucumber_features;
+package cucumber_classes;
 import static org.junit.Assert.assertEquals;
 
 import comp4004A1.gameClient;
@@ -18,7 +18,6 @@ public class userAction {
 	@When("Moe enters a {int} for action")
 	public void moe_enters_a_for_action(Integer int1) {
 	   status = gameClient.userActionChecker(int1);
-	   
 	}
 
 	@Then("I verify the true in step")
