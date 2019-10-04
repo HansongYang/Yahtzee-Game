@@ -203,4 +203,34 @@ public class gameClient {
 		}
 		return false;
 	}
+	
+	public static boolean userScoreChecker(int option) {
+		if(option >= 1 && option <=13) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean userRollingChecker(char r) {
+		if(r == 'r') {
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean userReRollChecker(String option) {
+		if(option.length() == 0 || option.length() > 9) {
+			return false;
+		}
+	
+		for(int i = 0; i < option.length(); i++) {
+			if(option.charAt(i) != ' ') {
+				int j = option.charAt(i) - '0';
+				if(j > 5  || j < 0) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 }

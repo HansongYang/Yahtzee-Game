@@ -38,7 +38,7 @@ public class dice {
 			if(index.charAt(i) != ' ') {
 				d.rollDice();
 				int j = index.charAt(i) - '0';
-				if(j < 5) {
+				if(j < 5 && j > 0) {
 					dice[j] = d.getValue();
 				}
 			}
