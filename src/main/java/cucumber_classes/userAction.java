@@ -1,6 +1,5 @@
 package cucumber_classes;
 import static org.junit.Assert.assertEquals;
-
 import comp4004A1.gameClient;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -13,6 +12,7 @@ public class userAction {
 	public void moe_enters_the_game() {
 		// The server is running
 	    // we have checked Moe enters the game
+		System.out.println("Moe enters the game and the game starts.");
 	}
 
 	@When("Moe enters a {int} for action")
@@ -20,7 +20,7 @@ public class userAction {
 	   status = gameClient.userActionChecker(int1);
 	}
 
-	@Then("I verify the true in step")
+	@Then("I verify the true of user input for user action in step")
 	public void i_verify_the_success_in_step() {
 	    assertEquals(true, status);
 	}
@@ -29,6 +29,7 @@ public class userAction {
 	public void joe_enters_the_game() {
 		// The server is running
 	    // we have checked Moe enters the game
+		System.out.println("Joe enters the game and the game starts.");
 	}
 
 	@When("Joe enters a {int} for action")
@@ -40,6 +41,7 @@ public class userAction {
 	public void sam_enters_the_game() {
 		// The server is running
 	    // we have checked Moe enters the game
+		System.out.println("Sam enters the game and the game starts.");
 	}
 
 	@When("Sam enters a {int} for action")
@@ -47,7 +49,7 @@ public class userAction {
 		status = gameClient.userActionChecker(int1);
 	}
 
-	@Then("I verify the false in step")
+	@Then("I verify the false of user input for user action in step")
 	public void i_verify_the_Fail_in_step() {
 		assertEquals(false, status);
 	}

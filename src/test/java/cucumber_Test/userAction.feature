@@ -5,7 +5,7 @@ Feature: Test the user action
   Scenario Outline: A player enters a number for user action
     Given <name> enters the game and the game starts
     When <name> enters a <value> for action
-    Then I verify the <status> in step
+    Then I verify the <status> of user input for user action in step
 
     Examples: 
       | name | value | status |

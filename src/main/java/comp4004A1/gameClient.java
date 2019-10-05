@@ -226,7 +226,7 @@ public class gameClient {
 		for(int i = 0; i < option.length(); i++) {
 			if(option.charAt(i) != ' ') {
 				int j = option.charAt(i) - '0';
-				if(j > 5  || j < 0) {
+				if(j > 4  || j < 0) {
 					return false;
 				}
 			}
