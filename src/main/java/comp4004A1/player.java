@@ -46,6 +46,7 @@ public class player implements Cloneable {
 	}
 	
 	public void addYahtzee() {
+		firstYahtzee = false;
 		for(int i = 0; i < yahtzees.length; i++) {
 			if(yahtzees[i] == 0) {
 				yahtzees[i] = 100;

@@ -1,7 +1,7 @@
 @UserAction
 Feature: Test the user action
 
-  @tag1
+ @tag1
   Scenario Outline: A player enters a number for user action
     Given <name> enters the game and the game starts
     When <name> enters a <value> for action
@@ -12,3 +12,46 @@ Feature: Test the user action
       | Moe  |     1 | true   |
       | Joe  |     2 | true   |
       | Sam  |     4 | false  |
+      
+ @tag2
+  Scenario Outline: A player enters a number or a list of numbers for re-rolling some dice.
+    Given Moe wants to re-roll some dice
+    When Moe enters <value> for re-rolling
+    Then I verify the <status> of user input for re-rolling in step
+
+    Examples: 
+      | value     | status |
+      | "1 2 3 4" | true   |
+      |     "0 4" | true   |
+      |       "3" | true   |
+      |       "6" | false  |
+      |   "3 4 5" | false  |
+      |   "0 3 6" | false  |
+      
+ @tag3
+  Scenario Outline: A player wants to roll all the dice
+    Given Moe wants to roll all the dice
+    When Moe enters <value> for rolling all the dice
+    Then I verify the <status> of user input for rolling in step
+
+    Examples: 
+      | value | status |
+      | 'r'     | true   |
+      | 't'     | false  |
+ 
+ @tag4
+  Scenario Outline: A player wants to score this round in a category
+    Given Sam wants to score this round
+    When Sam enters <value> for a category that he wants to score
+    Then I verify the <status> of user input for scoring in step
+
+    Examples: 
+      | value | status |
+      |     1 | true   |
+      |     7 | true   |
+      |    13 | true   |
+      |     0 | false  |
+      |    14 | false  |
+      |    20 | false  |
+  
+      
