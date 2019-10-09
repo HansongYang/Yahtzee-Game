@@ -44,10 +44,10 @@ Feature: Test lower section category
       | "2 2 4 4 4" |     25 |
 
   @tag4
-  Scenario Outline: A player wants to score the Three of kind category
+  Scenario Outline: A player wants to score the Three of a kind category
     Given Moe rolles the dice and wants to score in a lower section category
-    When Moe chooses to score the Three of kind category with his dice <value>
-    Then I verify the <points> that Moe can get from Three of kind category of in step
+    When Moe chooses to score the Three of a kind category with his dice <value>
+    Then I verify the <points> that Moe can get from Three of a kind category of in step
 
     Examples: 
       | value       | points |
@@ -58,10 +58,10 @@ Feature: Test lower section category
       | "2 2 3 4 4" |      0 |
 
   @tag5
-  Scenario Outline: A player wants to score the Four of kind category
+  Scenario Outline: A player wants to score the Four of a kind category
     Given Moe rolles the dice and wants to score in a lower section category
-    When Moe chooses to score the Four of kind category with his dice <value>
-    Then I verify the <points> that Moe can get from Four of kind category of in step
+    When Moe chooses to score the Four of a kind category with his dice <value>
+    Then I verify the <points> that Moe can get from Four of a kind category of in step
 
     Examples: 
       | value       | points |

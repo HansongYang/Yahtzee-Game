@@ -2,7 +2,7 @@
 Feature: Test upper section category
 
   @tag1
-  Scenario Outline: A player wants to score the ace category
+  Scenario Outline: A player wants to score the aces category
     Given Moe rolles the dice and wants to score in a upper section category
     When Moe chooses to score the ones category with his dice <value>
     Then I verify the <points> that Moe can get from ones category of in step
