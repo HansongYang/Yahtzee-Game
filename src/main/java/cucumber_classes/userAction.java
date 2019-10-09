@@ -1,12 +1,14 @@
 package cucumber_classes;
 import static org.junit.Assert.assertEquals;
 import comp4004A1.gameClient;
+import comp4004A1.yahtzeeGame;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class userAction {
 	private boolean status = false;
+	private yahtzeeGame g = new yahtzeeGame();
 	
 	@Given("Moe enters the game and the game starts")
 	public void moe_enters_the_game() {
@@ -101,11 +103,35 @@ public class userAction {
 	    // Write code here that turns the phrase above into concrete actions
 		assertEquals(status, false);
 	}
-	
+
 	@Given("Sam wants to score this round")
 	public void sam_wants_to_score_this_round() {
 	    // Write code here that turns the phrase above into concrete actions
-	   System.out.println("Sam wants to score this round.");
+	    System.out.println("Sam wants to score this roud with no re-roll");
+	}
+	
+	@Given("After {int} re-rolling, Sam wants to score this round")
+	public void after_re_rolling_Sam_wants_to_score_this_round(Integer int1) {
+	    // Write code here that turns the phrase above into concrete actions
+		for(int i = 0; i < int1; i++) {
+	    	g.rollAllDice();
+	    }
+	}
+	
+	@Given("After {int} re-roll of less than {int} dice, Sam wants to score this round")
+	public void after_re_roll_of_less_than_dice_Sam_wants_to_score_this_round(Integer int1, Integer int2) {
+	    // Write code here that turns the phrase above into concrete actions
+		for(int i = 0; i < int1; i++) {
+			g.rollSomeDice("1 2 3");
+		}
+	}
+	
+	@Given("After {int} re-roll of {int} dice, Sam wants to score this round")
+	public void after_re_roll_of_dice_Sam_wants_to_score_this_round(Integer int1, Integer int2) {
+	    // Write code here that turns the phrase above into concrete actions
+		for(int i = 0; i < int1; i++) {
+	    	g.rollAllDice();
+	    }
 	}
 
 	@When("Sam enters {int} for a category that he wants to score")

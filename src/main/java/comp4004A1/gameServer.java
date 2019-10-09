@@ -5,8 +5,27 @@ import java.util.*;
 import java.net.*; 
    
 public class gameServer{ 
-    static Vector<ClientHandler> ar = new Vector<>();
-
+    public static Vector<ClientHandler> ar = new Vector<>();
+    static boolean active = false;
+    
+    public void joinGames() throws IOException {
+    	Socket socket = null;
+	    yahtzeeGame game = new yahtzeeGame();
+        ClientHandler mtch = new ClientHandler(game, socket); 
+        ar.add(mtch);
+    }
+    
+    public boolean gameStarts() {
+    	if(ar.size() == 3) {
+    		return true;
+    	}
+    	return false;
+    }
+    
+    public boolean active() {
+     	return active;
+    }
+    
 	public static void main(String[] args) throws IOException, InterruptedException{ 
 		ServerSocket server = new ServerSocket(8081); 
         Socket socket = null; 
@@ -14,34 +33,47 @@ public class gameServer{
 
         System.out.println("Yathzee Game Engine has starting. Waiting for players to join...");
         while (true){ 
-        	socket = server.accept(); 
-            ClientHandler mtch = new ClientHandler(game, socket); 
-            Thread t = new Thread(mtch);
-            ar.add(mtch);
-            t.start(); 
-            if(ar.size() == 3) {
-            	Thread.sleep(500);
-            	System.out.println("The game is starting! \n");
-            }
-        } 
+        	try {
+        		active = true;
+	        	socket = server.accept(); 
+	            ClientHandler mtch = new ClientHandler(game, socket); 
+	            Thread t = new Thread(mtch);
+	            ar.add(mtch);
+	            t.start(); 
+	            if(ar.size() == 3) {
+	            	Thread.sleep(500);
+	            	System.out.println("The game is starting! \n");
+	            }
+        	} catch (IOException e) {
+        	    if (server != null && !server.isClosed()) {
+        	        try {
+        	            server.close();
+        	            break;
+        	        } catch (IOException e1)
+        	        {
+        	            e1.printStackTrace(System.err);
+        	        }
+        	    }
+        	}
+        }
     } 
 }
 
 class ClientHandler implements Runnable{ 
     Scanner scn = new Scanner(System.in); 
     private String name; 
-    final InputStream dis; 
-    final OutputStream dos; 
+    InputStream dis; 
+    OutputStream dos; 
     Socket s; 
-    boolean isloggedin; 
     yahtzeeGame game;
     
     public ClientHandler(yahtzeeGame game, Socket s) throws IOException {   
         this.game = game;
-        this.s = s; 
-        this.dos = s.getOutputStream(); 
-        this.dis = s.getInputStream();
-        this.isloggedin = true; 
+        if(s != null) {	
+	        this.s = s; 
+	        this.dos = s.getOutputStream(); 
+	        this.dis = s.getInputStream();
+        }
     } 
   
     @Override
@@ -88,6 +120,7 @@ class ClientHandler implements Runnable{
 			 							c.dos.write(("win "+ winner+ " " + game.getPlayerPoints(winner)).getBytes());
 			 						}
 			 						System.exit(0);
+			 						
 			 					} else {
 			 						System.out.println(inputs[2] + " finishes their turn.");
 			 						mc.dos.write((mc.name + " "+ "wait\n").getBytes());
@@ -130,6 +163,7 @@ class ClientHandler implements Runnable{
 	        try{ 
 	            this.dis.close(); 
 	            this.dos.close(); 
+	            s.close();
 	        }catch(IOException e){ 
 	            e.printStackTrace(); 
 	        }

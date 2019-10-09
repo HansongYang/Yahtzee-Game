@@ -68,7 +68,7 @@ public class lowerSection {
 		assertEquals(int1, Integer.valueOf(c.fullHouse(dice)));
 	}
 	
-	@When("Moe chooses to score the Three of kind category with his dice {string}")
+	@When("Moe chooses to score the Three of a kind category with his dice {string}")
 	public void moe_chooses_to_score_the_Three_of_kind_category_with_his_dice(String string) {
 	    // Write code here that turns the phrase above into concrete actions
 		int j = 0;
@@ -80,13 +80,13 @@ public class lowerSection {
 		}
 	}
 
-	@Then("I verify the {int} that Moe can get from Three of kind category of in step")
+	@Then("I verify the {int} that Moe can get from Three of a kind category of in step")
 	public void i_verify_the_that_Moe_can_get_from_Three_of_kind_category_of_in_step(Integer int1) {
 	    // Write code here that turns the phrase above into concrete actions
 		assertEquals(int1, Integer.valueOf(c.threeOfKind(dice)));
 	}
 	
-	@When("Moe chooses to score the Four of kind category with his dice {string}")
+	@When("Moe chooses to score the Four of a kind category with his dice {string}")
 	public void moe_chooses_to_score_the_Four_of_kind_category_with_his_dice(String string) {
 	    // Write code here that turns the phrase above into concrete actions
 		int j = 0;
@@ -98,7 +98,7 @@ public class lowerSection {
 		}
 	}
 
-	@Then("I verify the {int} that Moe can get from Four of kind category of in step")
+	@Then("I verify the {int} that Moe can get from Four of a kind category of in step")
 	public void i_verify_the_that_Moe_can_get_from_Four_of_kind_category_of_in_step(Integer int1) {
 	    // Write code here that turns the phrase above into concrete actions
 		assertEquals(int1, Integer.valueOf(c.fourOfKind(dice)));
