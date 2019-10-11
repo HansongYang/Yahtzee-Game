@@ -104,10 +104,16 @@ public class userAction {
 		assertEquals(status, false);
 	}
 
-	@Given("Sam wants to score this round")
+	@Given("Sam wants to score this round without re-rolling")
 	public void sam_wants_to_score_this_round() {
 	    // Write code here that turns the phrase above into concrete actions
-	    System.out.println("Sam wants to score this roud with no re-roll");
+	    System.out.println("Sam wants to score this roud without re-roll");
+	}
+	
+	@Given("Sam wants to re-roll some dice")
+	public void sam_wants_to_re_roll_some_dice() {
+	    // Write code here that turns the phrase above into concrete actions
+	    System.out.println("Sam wants to re-roll some dice");
 	}
 	
 	@Given("After {int} re-rolling, Sam wants to score this round")
@@ -118,12 +124,16 @@ public class userAction {
 	    }
 	}
 	
-	@Given("After {int} re-roll of less than {int} dice, Sam wants to score this round")
-	public void after_re_roll_of_less_than_dice_Sam_wants_to_score_this_round(Integer int1, Integer int2) {
+	@When("Sam enters {string} for re-rolling")
+	public void sam_enters_for_re_rolling(String string) {
 	    // Write code here that turns the phrase above into concrete actions
-		for(int i = 0; i < int1; i++) {
-			g.rollSomeDice("1 2 3");
-		}
+		g.rollSomeDice(string);
+	}
+
+	@When("He enters {int} for a category that he wants to score")
+	public void he_enters_for_a_category_that_he_wants_to_score(Integer int1) {
+	    // Write code here that turns the phrase above into concrete actions
+		status = gameClient.userScoreChecker(int1);
 	}
 	
 	@Given("After {int} re-roll of {int} dice, Sam wants to score this round")

@@ -20,13 +20,13 @@ Feature: Test the user action
     Then I verify the <status> of user input for re-rolling in step
 
     Examples: 
-      | value     | status |
-      | "1 2 3 4" | true   |
-      | "0 4"     | true   |
-      | "3"       | true   |
-      | "6"       | false  |
-      | "3 4 5"   | false  |
-      | "0 3 6"   | false  |
+      | value       | status |
+      | "0 1 2 3 4" | true   |
+      | "0 4"       | true   |
+      | "3"         | true   |
+      | "6"         | false  |
+      | "3 4 5"     | false  |
+      | "0 3 6"     | false  |
 
   @tag3
   Scenario Outline: A player wants to roll all the dice
@@ -41,7 +41,7 @@ Feature: Test the user action
 
   @tag4
   Scenario Outline: A player wants to score with no re-rolls
-    Given Sam wants to score this round
+    Given Sam wants to score this round without re-rolling
     When Sam enters <value> for a category that he wants to score
     Then I verify the <status> of user input for scoring in step
 
@@ -54,16 +54,17 @@ Feature: Test the user action
 
   @tag5
   Scenario Outline: A player wants to score with 1 re-roll of less than 5 dice
-    Given After 1 re-roll of less than 5 dice, Sam wants to score this round
-    When Sam enters <value> for a category that he wants to score
+    Given Sam wants to re-roll some dice
+    When Sam enters <dice> for re-rolling
+    And He enters <value> for a category that he wants to score
     Then I verify the <status> of user input for scoring in step
 
     Examples: 
-      | value | status |
-      |     2 | true   |
-      |     4 | true   |
-      |    14 | false  |
-      |    20 | false  |
+      | dice    | value | status |
+      | "1 2 3" |     2 | true   |
+      | "2"     |     4 | true   |
+      | "1 2"   |    14 | false  |
+      | "3 4"   |    20 | false  |
 
   @tag6
   Scenario Outline: A player wants to score with 1 re-roll of 5 dice

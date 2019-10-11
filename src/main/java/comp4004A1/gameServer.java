@@ -8,11 +8,28 @@ public class gameServer{
     public static Vector<ClientHandler> ar = new Vector<>();
     static boolean active = false;
     
-    public void joinGames() throws IOException {
+    public void joinGames(String name) throws IOException {
     	Socket socket = null;
 	    yahtzeeGame game = new yahtzeeGame();
         ClientHandler mtch = new ClientHandler(game, socket); 
+        mtch.name = name;
         ar.add(mtch);
+    }
+    
+    public String nextPlayer(String player) {
+    	int index = 0;
+	    for(ClientHandler mc : ar) {
+	    	if(mc.name.equals(player)) {
+	    		break;
+	    	}
+	    	index++;
+	    }
+	   
+	    if(index == 2) {
+	    	return ar.get(0).name;
+	    } else {
+	    	return ar.get(++index).name;
+	    }
     }
     
     public boolean gameStarts() {
@@ -61,7 +78,7 @@ public class gameServer{
 
 class ClientHandler implements Runnable{ 
     Scanner scn = new Scanner(System.in); 
-    private String name; 
+    String name; 
     InputStream dis; 
     OutputStream dos; 
     Socket s; 
