@@ -14,7 +14,9 @@ public class playerFeature {
 	private player p = new player();
 	private categoryChecker c = new categoryChecker();
 	private int [] dice = new int[5];
+	private String nextPlayer = "";
 	private boolean bonus = false;
+	private boolean status = false;
 	
 	@Given("Moe rolles the dice and wants to score the yahtzee bonus")
 	public void moe_rolles_the_dice_and_wants_to_score_the_yahtzee_bonus() {
@@ -33,46 +35,22 @@ public class playerFeature {
 			}
 		}
 		if(c.yahtzee(dice) == 50) {
-			p.addPoints(12, 50);
-		}
-	}
-
-	@When("Moe chooses to score the yahtzee bonus category with his dice {string}, {string}")
-	public void moe_chooses_to_score_the_yahtzee_bonus_category_with_his_dice(String string, String string2) {
-	    // Write code here that turns the phrase above into concrete actions
-		int j = 0;
-		for(int i = 0; i < string.length(); i++) {
-			if(string.charAt(i) != ' ') {
-				dice[j] = Integer.parseInt(String.valueOf(string.charAt(i)));
-				j++;
-			}
-		}
-		if(c.yahtzee(dice) == 50) {
-			p.addPoints(12, 50);
-		}
-		
-		j = 0;
-		for(int i = 0; i < string2.length(); i++) {
-			if(string2.charAt(i) != ' ') {
-				dice[j] = Integer.parseInt(String.valueOf(string2.charAt(i)));
-				j++;
-			}
-		}
-		if(c.yahtzee(dice) == 50 && !p.firstYahtzee()) {
-			p.addPoints(12, 50);
-		} else if(c.yahtzee(dice) == 50  && p.firstYahtzee()) {
-			p.addYahtzee();
+			status = true;
 		}
 	}
 	
-	@Then("I verify the {int} that Moe can get from yahtzee bonus category of in step")
-	public void i_verify_the_that_Moe_can_get_from_yahtzee_bonus_category_of_in_step(Integer int1) {
-	    // Write code here that turns the phrase above into concrete actions
-		if(p.firstYahtzee()) {
-			assertEquals(int1, Integer.valueOf(0));
-		} else {
-			assertEquals(int1, Integer.valueOf(100));
-		}
+	@Then("I verify the {int} and {int} that Moe can get from yahtzee bonus category of in step")
+	public void i_verify_the_and_that_Moe_can_get_from_yahtzee_bonus_category_of_in_step(Integer int1, Integer int2) {
+	   if(int2 == 0) {
+		   assertEquals(int1, Integer.valueOf(0));
+	   } else {
+		   if(status) {
+			   assertEquals(int1, Integer.valueOf(100));
+		   } else {
+			   assertEquals(int1, Integer.valueOf(0));
+		   }
+	   }
+	    
 	}
 	
 	@Given("Moe plays the game for a couple of rounds")
@@ -131,23 +109,29 @@ public class playerFeature {
 	public void the_server_is_running() {
 	    //We checked the server is on
 	    System.out.println("The server is running.");
+	    g.ar.clear();
 	}
 	
 	@When("Sam joins the game")
 	public void sam_joins_the_game() throws IOException {
-		g.joinGames();
+		g.joinGames("Sam");
 	}
 
 	@When("Joe joins the game")
 	public void joe_joins_the_game() throws IOException{
-		g.joinGames();
+		g.joinGames("Joe");
 	}
 	
 	@When("Moe joins the game")
 	public void moe_joins_the_game() throws IOException{
-		g.joinGames();
+		g.joinGames("Moe");
 	}
 
+	@Then("I verify that how many players are in this game in step")
+	public void i_verify_that_how_many_players_are_in_this_game_in_step() {
+		assertEquals(1, g.ar.size());
+	}
+	
 	@Then("I verify whether the game starts or not in step")
 	public void i_verify_whether_the_game_starts_or_not_in_step() {
 		if(g.ar.size() < 3) {
@@ -177,5 +161,28 @@ public class playerFeature {
 	@Then("I verify whether the game ends or not in step")
 	public void i_verify_whether_the_game_ends_or_not() {
 	    assertEquals(false, g.active());
+	}
+	
+	@Given("Moe finishes his turn")
+	public void moe_finishes_his_turn() {
+	    // Write code here that turns the phrase above into concrete actions
+	    System.out.println("Moe finishes his turn.");
+	}
+
+	@When("The next player is ready to play by folling the {string}")
+	public void the_next_player_is_ready_to_play_by_folling_the(String string) throws IOException {
+		g = new gameServer();
+		g.ar.clear();
+		String [] arr = string.split(" ");
+	    for(int i = 0; i < arr.length; i++) {
+	    	g.joinGames(arr[i]);
+	    }
+	    nextPlayer = g.nextPlayer("Moe");
+	}
+
+	@Then("I verify the correctness of next player {string}  in step")
+	public void i_verify_the_correctness_of_in_step(String string) {
+	    // Write code here that turns the phrase above into concrete actions
+	    assertEquals(string, nextPlayer);
 	}
 }
