@@ -13,7 +13,7 @@ public class yahtzeeGame {
 			p1.setName(name);
 		} else if(p2.getName().equals("")) {
 			p2.setName(name);
-		} else {
+		} else if (p3.getName().equals("")){
 			p3.setName(name);
 		}
 	}
@@ -153,6 +153,12 @@ public class yahtzeeGame {
 			return winner();
 		}
 		return null;
+	}
+	
+	public void setCurrentRound(int round) {
+		p1.setRound(round);
+		p2.setRound(round);
+		p3.setRound(round);
 	}
 	
 	public String winner() {
