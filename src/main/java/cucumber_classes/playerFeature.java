@@ -2,10 +2,10 @@ package cucumber_classes;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
-
 import comp4004A1.categoryChecker;
 import comp4004A1.gameServer;
 import comp4004A1.player;
+import comp4004A1.yahtzeeGame;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -13,6 +13,8 @@ import io.cucumber.java.en.When;
 public class playerFeature {
 	private player p = new player();
 	private categoryChecker c = new categoryChecker();
+	private yahtzeeGame game = new yahtzeeGame();
+	private gameServer g = new gameServer();
 	private int [] dice = new int[5];
 	private String nextPlayer = "";
 	private boolean bonus = false;
@@ -104,7 +106,6 @@ public class playerFeature {
 	    }
 	}
 
-	gameServer g = new gameServer();
 	@Given("The server is running")
 	public void the_server_is_running() {
 	    //We checked the server is on
@@ -115,16 +116,19 @@ public class playerFeature {
 	@When("Sam joins the game")
 	public void sam_joins_the_game() throws IOException {
 		g.joinGames("Sam");
+		game.setPlayerName("Sam");
 	}
 
 	@When("Joe joins the game")
 	public void joe_joins_the_game() throws IOException{
 		g.joinGames("Joe");
+		game.setPlayerName("Joe");
 	}
 	
 	@When("Moe joins the game")
 	public void moe_joins_the_game() throws IOException{
 		g.joinGames("Moe");
+		game.setPlayerName("Moe");
 	}
 
 	@Then("I verify that how many players are in this game in step")
@@ -184,5 +188,40 @@ public class playerFeature {
 	public void i_verify_the_correctness_of_in_step(String string) {
 	    // Write code here that turns the phrase above into concrete actions
 	    assertEquals(string, nextPlayer);
+	}
+
+	@Given("Three players finish their turn")
+	public void three_players_finish_their_turn() {
+		game.setPlayerName("Sam");
+		game.setPlayerName("Joe");
+		game.setPlayerName("Moe");
+	    System.out.println("Three players finish their turn.");
+	}
+
+	@When("This round finishes and the round {int} starts")
+	public void this_round_finishes_and_the_next_round_starts(Integer int1) {
+	    // Write code here that turns the phrase above into concrete actions
+		game.setCurrentRound(int1-1);
+	    game.nextRound("Sam");
+	    game.nextRound("Joe");
+	    game.nextRound("Moe");
+	}
+	
+	@When("Thirteen rounds finishes")
+	public void thirteen_rounds_finishes() {
+	    // Write code here that turns the phrase above into concrete actions
+	    for(int i = 0; i < 13; i++) {
+	    	game.nextRound("Sam");
+		    game.nextRound("Joe");
+		    game.nextRound("Moe");
+	    }
+	}
+
+	@Then("I verify the correctness of round {int} in step")
+	public void i_verify_the_correctness_of_round_in_step(Integer int1) {
+	    // Write code here that turns the phrase above into concrete actions
+	    assertEquals(int1, Integer.valueOf(game.getPlayerRound("Sam")));
+	    assertEquals(int1, Integer.valueOf(game.getPlayerRound("Moe")));
+	    assertEquals(int1, Integer.valueOf(game.getPlayerRound("Joe")));
 	}
 }

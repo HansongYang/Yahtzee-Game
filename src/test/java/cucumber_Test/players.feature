@@ -21,9 +21,9 @@ Feature: Test Player feature
 
     Examples: 
       | name | total upper section points |
-      | Moe  |                   50 |
-      | Sam  |                   63 |
-      | Joe  |                   70 |
+      | Moe  |                         50 |
+      | Sam  |                         63 |
+      | Joe  |                         70 |
 
   @tag3
   Scenario: A player joins the game
@@ -41,8 +41,8 @@ Feature: Test Player feature
       | points        |
       | "198 220 212" |
       | "200 213 245" |
-      
- @tag5
+
+  @tag5
   Scenario Outline: Three players join the game and the game starts
     Given The server is running
     When <name> joins the game
@@ -65,3 +65,21 @@ Feature: Test Player feature
       | "Moe Sam Joe" | "Sam"       |
       | "Joe Sam Moe" | "Joe"       |
       | "Sam Moe Joe" | "Joe"       |
+  
+  @tag7
+  Scenario Outline: Three players finish their turn and then this round finishes
+    Given Three players finish their turn
+    When This round finishes and the round <round> starts
+    Then I verify the correctness of round <round> in step
+
+    Examples: 
+     | round|
+     |  2		|
+     |  3		|
+     |  4		|
+  
+  @tag8
+  Scenario: Three players finish their turn for the last round and then this game ends
+    Given Three players finish their turn 
+    When Thirteen rounds finishes
+    Then I verify whether the game ends or not in step

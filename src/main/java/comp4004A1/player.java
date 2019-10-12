@@ -19,6 +19,10 @@ public class player implements Cloneable {
 		return round;
 	}
 	
+	public void setRound(int round) {
+		this.round = round;
+	}
+	
 	public void nextRound() {
 		round++;
 	}
