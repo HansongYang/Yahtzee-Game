@@ -8,6 +8,7 @@ import io.cucumber.java.en.When;
 public class lowerSection {
 	private categoryChecker c = new categoryChecker();
 	private int [] dice = new int[5];
+	
 	@Given("Moe rolles the dice and wants to score in a lower section category")
 	public void moe_rolles_the_dice_and_wants_to_score_a_lower_section_category() {
 	    // Write code here that turns the phrase above into concrete actions
