@@ -11,7 +11,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class playerFeature {
-	private player p = new player();
 	private categoryChecker c = new categoryChecker();
 	private yahtzeeGame game = new yahtzeeGame();
 	private gameServer g = new gameServer();
