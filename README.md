@@ -1,6 +1,5 @@
-# comp4004A1
-COMP 4004 Assignment 2
-Yahtzee Game
+# 
+Yahtzee Game (Multiple Players)
 
 1. Clone this git repo
 2. Import these codes in eclipse
